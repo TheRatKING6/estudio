@@ -105,5 +105,54 @@ namespace estudio
 
             return reader;
         }
+
+        public bool excluirModalidade(int id)
+        {
+            bool del = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand delete = new MySqlCommand("update Estudio_Modalidade set ativa = 1 where idEstudio_Modalidade=" + id, DAO_Conexao.con);
+
+                delete.ExecuteNonQuery();
+                del = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return del;
+        }
+
+        public bool atualizarModalidade(int id)
+        {
+            bool upd = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand update = new MySqlCommand("update Estudio_Modalidade set descricaoModalidade='"+descricao+"', precoModalidade="+preco+", " +
+                    "qtdeAlunos="+qtde_alunos+", qtdeAulas="+qtde_aulas+" where idEstudio_Modalidade=" + id, DAO_Conexao.con);
+
+                update.ExecuteNonQuery();
+                upd = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return upd;
+        }
     }
 }

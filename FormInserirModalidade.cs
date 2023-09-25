@@ -30,5 +30,10 @@ namespace estudio
                 MessageBox.Show("Erro ao cadastrar");
             }
         }
+
+        private void FormInserirModalidade_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

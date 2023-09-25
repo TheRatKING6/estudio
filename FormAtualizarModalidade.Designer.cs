@@ -1,7 +1,7 @@
 ﻿
 namespace estudio
 {
-    partial class FormInserirModalidade
+    partial class FormAtualizarModalidade
     {
         /// <summary>
         /// Required designer variable.
@@ -30,11 +30,11 @@ namespace estudio
         private void InitializeComponent()
         {
             this.groupBoxModalidade = new System.Windows.Forms.GroupBox();
-            this.btnInserir = new System.Windows.Forms.Button();
+            this.cbxModalidade = new System.Windows.Forms.ComboBox();
+            this.btnAtualizar = new System.Windows.Forms.Button();
             this.txtQtdAulas = new System.Windows.Forms.TextBox();
             this.txtQtdAlunos = new System.Windows.Forms.TextBox();
             this.txtPreco = new System.Windows.Forms.TextBox();
-            this.txtDescricao = new System.Windows.Forms.TextBox();
             this.lblQtdAulas = new System.Windows.Forms.Label();
             this.lblQtdAlunos = new System.Windows.Forms.Label();
             this.lblPreco = new System.Windows.Forms.Label();
@@ -44,31 +44,39 @@ namespace estudio
             // 
             // groupBoxModalidade
             // 
-            this.groupBoxModalidade.Controls.Add(this.btnInserir);
+            this.groupBoxModalidade.Controls.Add(this.cbxModalidade);
+            this.groupBoxModalidade.Controls.Add(this.btnAtualizar);
             this.groupBoxModalidade.Controls.Add(this.txtQtdAulas);
             this.groupBoxModalidade.Controls.Add(this.txtQtdAlunos);
             this.groupBoxModalidade.Controls.Add(this.txtPreco);
-            this.groupBoxModalidade.Controls.Add(this.txtDescricao);
             this.groupBoxModalidade.Controls.Add(this.lblQtdAulas);
             this.groupBoxModalidade.Controls.Add(this.lblQtdAlunos);
             this.groupBoxModalidade.Controls.Add(this.lblPreco);
             this.groupBoxModalidade.Controls.Add(this.lblDescricao);
-            this.groupBoxModalidade.Location = new System.Drawing.Point(79, 28);
+            this.groupBoxModalidade.Location = new System.Drawing.Point(75, 58);
             this.groupBoxModalidade.Name = "groupBoxModalidade";
-            this.groupBoxModalidade.Size = new System.Drawing.Size(650, 309);
-            this.groupBoxModalidade.TabIndex = 0;
+            this.groupBoxModalidade.Size = new System.Drawing.Size(650, 335);
+            this.groupBoxModalidade.TabIndex = 2;
             this.groupBoxModalidade.TabStop = false;
             this.groupBoxModalidade.Text = "Modalidades";
             // 
-            // btnInserir
+            // cbxModalidade
             // 
-            this.btnInserir.Location = new System.Drawing.Point(54, 240);
-            this.btnInserir.Name = "btnInserir";
-            this.btnInserir.Size = new System.Drawing.Size(483, 23);
-            this.btnInserir.TabIndex = 8;
-            this.btnInserir.Text = "Cadastrar";
-            this.btnInserir.UseVisualStyleBackColor = true;
-            this.btnInserir.Click += new System.EventHandler(this.btnInserir_Click);
+            this.cbxModalidade.FormattingEnabled = true;
+            this.cbxModalidade.Location = new System.Drawing.Point(154, 58);
+            this.cbxModalidade.Name = "cbxModalidade";
+            this.cbxModalidade.Size = new System.Drawing.Size(383, 21);
+            this.cbxModalidade.TabIndex = 9;
+            this.cbxModalidade.SelectedIndexChanged += new System.EventHandler(this.cbxModalidade_SelectedIndexChanged);
+            // 
+            // btnAtualizar
+            // 
+            this.btnAtualizar.Location = new System.Drawing.Point(54, 240);
+            this.btnAtualizar.Name = "btnAtualizar";
+            this.btnAtualizar.Size = new System.Drawing.Size(483, 23);
+            this.btnAtualizar.TabIndex = 8;
+            this.btnAtualizar.Text = "Atualizar";
+            this.btnAtualizar.UseVisualStyleBackColor = true;
             // 
             // txtQtdAulas
             // 
@@ -90,13 +98,6 @@ namespace estudio
             this.txtPreco.Name = "txtPreco";
             this.txtPreco.Size = new System.Drawing.Size(383, 20);
             this.txtPreco.TabIndex = 5;
-            // 
-            // txtDescricao
-            // 
-            this.txtDescricao.Location = new System.Drawing.Point(154, 60);
-            this.txtDescricao.Name = "txtDescricao";
-            this.txtDescricao.Size = new System.Drawing.Size(383, 20);
-            this.txtDescricao.TabIndex = 4;
             // 
             // lblQtdAulas
             // 
@@ -134,15 +135,15 @@ namespace estudio
             this.lblDescricao.TabIndex = 0;
             this.lblDescricao.Text = "Descrição:";
             // 
-            // FormInserirModalidade
+            // FormAtualizarModalidade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 373);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.groupBoxModalidade);
-            this.Name = "FormInserirModalidade";
-            this.Text = "Cadastrar Modalidades";
-            this.Load += new System.EventHandler(this.FormInserirModalidade_Load);
+            this.Name = "FormAtualizarModalidade";
+            this.Text = "FormAtualizarModalidade";
+            this.Load += new System.EventHandler(this.FormAtualizarModalidade_Load);
             this.groupBoxModalidade.ResumeLayout(false);
             this.groupBoxModalidade.PerformLayout();
             this.ResumeLayout(false);
@@ -152,11 +153,11 @@ namespace estudio
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxModalidade;
-        private System.Windows.Forms.Button btnInserir;
+        private System.Windows.Forms.ComboBox cbxModalidade;
+        private System.Windows.Forms.Button btnAtualizar;
         private System.Windows.Forms.TextBox txtQtdAulas;
         private System.Windows.Forms.TextBox txtQtdAlunos;
         private System.Windows.Forms.TextBox txtPreco;
-        private System.Windows.Forms.TextBox txtDescricao;
         private System.Windows.Forms.Label lblQtdAulas;
         private System.Windows.Forms.Label lblQtdAlunos;
         private System.Windows.Forms.Label lblPreco;
