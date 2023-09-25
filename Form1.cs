@@ -89,5 +89,19 @@ namespace estudio
             form4.MdiParent = this;
             form4.Show();
         }
+
+        private void inserirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormInserirModalidade form = new FormInserirModalidade();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormConsultarMod form = new FormConsultarMod();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
