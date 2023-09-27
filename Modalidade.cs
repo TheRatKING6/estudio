@@ -154,5 +154,29 @@ namespace estudio
 
             return upd;
         }
+
+        public bool ativarModalidade(int id)
+        {
+            bool atv = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand ativado = new MySqlCommand("update Estudio_Modalidade set ativa = 0 where idEstudio_Modalidade=" + id, DAO_Conexao.con);
+
+                ativado.ExecuteNonQuery();
+                atv = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return atv;
+        }
     }
 }

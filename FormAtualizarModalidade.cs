@@ -24,6 +24,7 @@ namespace estudio
                 cbxModalidade.Items.Add(dr["descricaoModalidade"].ToString());
             }
             DAO_Conexao.con.Close();
+            btnAtivar.Visible = false;
         }
 
         private void FormAtualizarModalidade_Load(object sender, EventArgs e)
@@ -36,14 +37,21 @@ namespace estudio
             int index = cbxModalidade.SelectedIndex;
             Modalidade mod = new Modalidade();
             MySqlDataReader reader = mod.consultarModalidade(index + 1);
+            int ativo = 0;
 
             while (reader.Read())
             {
                 txtPreco.Text = reader["precoModalidade"].ToString(); //Por algum motivo o banco de dados sql não está armazenando o número como float (a virgula n aparece lol)
                 txtQtdAlunos.Text = reader["qtdeAlunos"].ToString();
                 txtQtdAulas.Text = reader["qtdeAulas"].ToString();
+                ativo = int.Parse(reader["ativa"].ToString());
             }
             DAO_Conexao.con.Close();
+
+            if(ativo == 1)
+            {
+                btnAtivar.Visible = true;
+            }
         }
 
         private void btnAtualizar_Click(object sender, EventArgs e)
@@ -60,6 +68,24 @@ namespace estudio
             {
                 MessageBox.Show("Erro ao atualizar a modalidade");
             }
+        }
+
+        private void btnAtivar_Click(object sender, EventArgs e)
+        {
+            int index = cbxModalidade.SelectedIndex;
+
+            Modalidade mod = new Modalidade();
+
+            if(mod.ativarModalidade(index + 1))
+            {
+                MessageBox.Show("Modalidade reativada com sucesso");
+            }
+            else
+            {
+                MessageBox.Show("Erro ao reativar modalidade");
+            }
+
+            btnAtivar.Visible = false;
         }
     }
 }

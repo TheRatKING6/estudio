@@ -39,11 +39,13 @@ namespace estudio
             this.lblQtdAlunos = new System.Windows.Forms.Label();
             this.lblPreco = new System.Windows.Forms.Label();
             this.lblDescricao = new System.Windows.Forms.Label();
+            this.btnAtivar = new System.Windows.Forms.Button();
             this.groupBoxModalidade.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxModalidade
             // 
+            this.groupBoxModalidade.Controls.Add(this.btnAtivar);
             this.groupBoxModalidade.Controls.Add(this.cbxModalidade);
             this.groupBoxModalidade.Controls.Add(this.btnAtualizar);
             this.groupBoxModalidade.Controls.Add(this.txtQtdAulas);
@@ -136,6 +138,16 @@ namespace estudio
             this.lblDescricao.TabIndex = 0;
             this.lblDescricao.Text = "Descrição:";
             // 
+            // btnAtivar
+            // 
+            this.btnAtivar.Location = new System.Drawing.Point(54, 283);
+            this.btnAtivar.Name = "btnAtivar";
+            this.btnAtivar.Size = new System.Drawing.Size(483, 23);
+            this.btnAtivar.TabIndex = 10;
+            this.btnAtivar.Text = "Essa modalidades está inativa, clique aqui para ativá-la";
+            this.btnAtivar.UseVisualStyleBackColor = true;
+            this.btnAtivar.Click += new System.EventHandler(this.btnAtivar_Click);
+            // 
             // FormAtualizarModalidade
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -163,5 +175,6 @@ namespace estudio
         private System.Windows.Forms.Label lblQtdAlunos;
         private System.Windows.Forms.Label lblPreco;
         private System.Windows.Forms.Label lblDescricao;
+        private System.Windows.Forms.Button btnAtivar;
     }
 }

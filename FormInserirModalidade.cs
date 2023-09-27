@@ -29,6 +29,11 @@ namespace estudio
             {
                 MessageBox.Show("Erro ao cadastrar");
             }
+
+            txtDescricao.Text = null;
+            txtPreco.Text = null;
+            txtQtdAlunos.Text = null;
+            txtQtdAulas.Text = null;
         }
 
         private void FormInserirModalidade_Load(object sender, EventArgs e)
