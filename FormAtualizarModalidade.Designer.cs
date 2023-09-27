@@ -77,6 +77,7 @@ namespace estudio
             this.btnAtualizar.TabIndex = 8;
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = true;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // txtQtdAulas
             // 

@@ -28,14 +28,7 @@ namespace estudio
 
         private void FormAtualizarModalidade_Load(object sender, EventArgs e)
         {
-            int index = cbxModalidade.SelectedIndex;
-            Modalidade mod = new Modalidade(cbxModalidade.Text, float.Parse(txtPreco.Text), int.Parse(txtQtdAlunos.Text), int.Parse(txtQtdAulas.Text)); 
-            MySqlDataReader reader = mod.consultarModalidade(index + 1);
-
-            if(mod.atualizarModalidade(index = 1))
-            {
-                //MessageBox.Show() //Continuar daqui
-            }
+            
         }
 
         private void cbxModalidade_SelectedIndexChanged(object sender, EventArgs e)
@@ -51,6 +44,22 @@ namespace estudio
                 txtQtdAulas.Text = reader["qtdeAulas"].ToString();
             }
             DAO_Conexao.con.Close();
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            Modalidade mod = new Modalidade(cbxModalidade.Text, float.Parse(txtPreco.Text), int.Parse(txtQtdAlunos.Text), int.Parse(txtQtdAulas.Text));
+
+            int index = cbxModalidade.SelectedIndex;
+
+            if (mod.atualizarModalidade(index + 1))
+            {
+                MessageBox.Show("Modalidades Atualizada com sucesso");
+            }
+            else
+            {
+                MessageBox.Show("Erro ao atualizar a modalidade");
+            }
         }
     }
 }
