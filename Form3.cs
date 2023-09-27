@@ -70,5 +70,10 @@ namespace estudio
                 MessageBox.Show("Não é possível atualizar um aluno que ainda não foi cadastrado");
             }
         }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

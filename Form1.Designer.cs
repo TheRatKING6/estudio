@@ -32,16 +32,21 @@ namespace estudio
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrarAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cadastrarLoginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.sairToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.modalidadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inserirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.excluirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.atualizarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.excluirAlunoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -49,10 +54,11 @@ namespace estudio
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.arquivoToolStripMenuItem});
+            this.arquivoToolStripMenuItem,
+            this.modalidadeToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(993, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -72,27 +78,73 @@ namespace estudio
             // cadastrarAlunoToolStripMenuItem
             // 
             this.cadastrarAlunoToolStripMenuItem.Name = "cadastrarAlunoToolStripMenuItem";
-            this.cadastrarAlunoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cadastrarAlunoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.cadastrarAlunoToolStripMenuItem.Text = "Cadastrar Aluno";
             this.cadastrarAlunoToolStripMenuItem.Click += new System.EventHandler(this.cadastrarAlunoToolStripMenuItem_Click);
+            // 
+            // excluirAlunoToolStripMenuItem
+            // 
+            this.excluirAlunoToolStripMenuItem.Name = "excluirAlunoToolStripMenuItem";
+            this.excluirAlunoToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.excluirAlunoToolStripMenuItem.Text = "Excluir Aluno";
+            this.excluirAlunoToolStripMenuItem.Click += new System.EventHandler(this.excluirAlunoToolStripMenuItem_Click);
             // 
             // cadastrarLoginToolStripMenuItem
             // 
             this.cadastrarLoginToolStripMenuItem.Name = "cadastrarLoginToolStripMenuItem";
-            this.cadastrarLoginToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cadastrarLoginToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.cadastrarLoginToolStripMenuItem.Text = "Cadastrar Login";
             this.cadastrarLoginToolStripMenuItem.Click += new System.EventHandler(this.cadastrarLoginToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(156, 6);
             // 
             // sairToolStripMenuItem
             // 
             this.sairToolStripMenuItem.Name = "sairToolStripMenuItem";
-            this.sairToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.sairToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.sairToolStripMenuItem.Text = "Sair";
+            // 
+            // modalidadeToolStripMenuItem
+            // 
+            this.modalidadeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inserirToolStripMenuItem,
+            this.excluirToolStripMenuItem,
+            this.consultarToolStripMenuItem,
+            this.atualizarToolStripMenuItem});
+            this.modalidadeToolStripMenuItem.Name = "modalidadeToolStripMenuItem";
+            this.modalidadeToolStripMenuItem.Size = new System.Drawing.Size(82, 20);
+            this.modalidadeToolStripMenuItem.Text = "Modalidade";
+            // 
+            // inserirToolStripMenuItem
+            // 
+            this.inserirToolStripMenuItem.Name = "inserirToolStripMenuItem";
+            this.inserirToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.inserirToolStripMenuItem.Text = "Inserir";
+            this.inserirToolStripMenuItem.Click += new System.EventHandler(this.inserirToolStripMenuItem_Click);
+            // 
+            // excluirToolStripMenuItem
+            // 
+            this.excluirToolStripMenuItem.Name = "excluirToolStripMenuItem";
+            this.excluirToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.excluirToolStripMenuItem.Text = "Excluir";
+            this.excluirToolStripMenuItem.Click += new System.EventHandler(this.excluirToolStripMenuItem_Click);
+            // 
+            // consultarToolStripMenuItem
+            // 
+            this.consultarToolStripMenuItem.Name = "consultarToolStripMenuItem";
+            this.consultarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.consultarToolStripMenuItem.Text = "Consultar";
+            this.consultarToolStripMenuItem.Click += new System.EventHandler(this.consultarToolStripMenuItem_Click);
+            // 
+            // atualizarToolStripMenuItem
+            // 
+            this.atualizarToolStripMenuItem.Name = "atualizarToolStripMenuItem";
+            this.atualizarToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+            this.atualizarToolStripMenuItem.Text = "Atualizar";
+            this.atualizarToolStripMenuItem.Click += new System.EventHandler(this.atualizarToolStripMenuItem_Click);
             // 
             // groupBox1
             // 
@@ -101,7 +153,7 @@ namespace estudio
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(99, 85);
+            this.groupBox1.Location = new System.Drawing.Point(230, 166);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(560, 266);
             this.groupBox1.TabIndex = 2;
@@ -115,6 +167,7 @@ namespace estudio
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 4;
+            this.textBox2.Text = "senha123";
             // 
             // textBox1
             // 
@@ -122,6 +175,7 @@ namespace estudio
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 3;
+            this.textBox1.Text = "adm";
             // 
             // button1
             // 
@@ -151,24 +205,17 @@ namespace estudio
             this.label1.TabIndex = 0;
             this.label1.Text = "Login:";
             // 
-            // excluirAlunoToolStripMenuItem
-            // 
-            this.excluirAlunoToolStripMenuItem.Name = "excluirAlunoToolStripMenuItem";
-            this.excluirAlunoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.excluirAlunoToolStripMenuItem.Text = "Excluir Aluno";
-            this.excluirAlunoToolStripMenuItem.Click += new System.EventHandler(this.excluirAlunoToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(993, 570);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sistema";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -194,6 +241,11 @@ namespace estudio
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem excluirAlunoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem modalidadeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inserirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem excluirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultarToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem atualizarToolStripMenuItem;
     }
 }
 

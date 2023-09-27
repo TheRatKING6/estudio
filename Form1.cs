@@ -64,7 +64,7 @@ namespace estudio
             }
             else if(tipo == 1)
             {
-                MessageBox.Show("Conta administrativa", "Aviso", MessageBoxButtons.OK);
+                //MessageBox.Show("Conta administrativa", "Aviso", MessageBoxButtons.OK);
                 groupBox1.Visible = false;
                 menuStrip1.Enabled = true;
             }
@@ -88,6 +88,34 @@ namespace estudio
             Form4 form4 = new Form4();
             form4.MdiParent = this;
             form4.Show();
+        }
+
+        private void inserirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormInserirModalidade form = new FormInserirModalidade();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void consultarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormConsultarMod form = new FormConsultarMod();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void excluirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormExcluirModalidade form = new FormExcluirModalidade();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void atualizarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormAtualizarModalidade form = new FormAtualizarModalidade();
+            form.MdiParent = this;
+            form.Show();
         }
     }
 }
