@@ -117,5 +117,12 @@ namespace estudio
             form.MdiParent = this;
             form.Show();
         }
+
+        private void cadastrarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormCadastrarTurma form = new FormCadastrarTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
