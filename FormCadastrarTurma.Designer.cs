@@ -30,17 +30,17 @@ namespace estudio
         private void InitializeComponent()
         {
             this.gpbTurma = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtModalidade = new System.Windows.Forms.TextBox();
-            this.txtProfessor = new System.Windows.Forms.TextBox();
-            this.txtDiaSemana = new System.Windows.Forms.TextBox();
-            this.txtHora = new System.Windows.Forms.TextBox();
-            this.btnCadastrar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtNumAlunos = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.btnCadastrar = new System.Windows.Forms.Button();
+            this.txtHora = new System.Windows.Forms.TextBox();
+            this.txtDiaSemana = new System.Windows.Forms.TextBox();
+            this.txtProfessor = new System.Windows.Forms.TextBox();
+            this.txtModalidade = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridViewMod = new System.Windows.Forms.DataGridView();
             this.modalidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpbTurma.SuspendLayout();
@@ -67,78 +67,12 @@ namespace estudio
             this.gpbTurma.TabStop = false;
             this.gpbTurma.Text = "Turma";
             // 
-            // label1
+            // txtNumAlunos
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Modalidade:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(33, 79);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Professor:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 111);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(83, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Dia da Semana:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(43, 141);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(44, 13);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Horário:";
-            // 
-            // txtModalidade
-            // 
-            this.txtModalidade.Location = new System.Drawing.Point(100, 38);
-            this.txtModalidade.Name = "txtModalidade";
-            this.txtModalidade.Size = new System.Drawing.Size(434, 20);
-            this.txtModalidade.TabIndex = 4;
-            // 
-            // txtProfessor
-            // 
-            this.txtProfessor.Location = new System.Drawing.Point(100, 76);
-            this.txtProfessor.Name = "txtProfessor";
-            this.txtProfessor.Size = new System.Drawing.Size(434, 20);
-            this.txtProfessor.TabIndex = 5;
-            // 
-            // txtDiaSemana
-            // 
-            this.txtDiaSemana.Location = new System.Drawing.Point(100, 111);
-            this.txtDiaSemana.Name = "txtDiaSemana";
-            this.txtDiaSemana.Size = new System.Drawing.Size(434, 20);
-            this.txtDiaSemana.TabIndex = 6;
-            // 
-            // txtHora
-            // 
-            this.txtHora.Location = new System.Drawing.Point(100, 141);
-            this.txtHora.Name = "txtHora";
-            this.txtHora.Size = new System.Drawing.Size(100, 20);
-            this.txtHora.TabIndex = 7;
-            // 
-            // btnCadastrar
-            // 
-            this.btnCadastrar.Location = new System.Drawing.Point(90, 208);
-            this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(434, 23);
-            this.btnCadastrar.TabIndex = 8;
-            this.btnCadastrar.Text = "Cadastrar";
-            this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.txtNumAlunos.Location = new System.Drawing.Point(100, 174);
+            this.txtNumAlunos.Name = "txtNumAlunos";
+            this.txtNumAlunos.Size = new System.Drawing.Size(100, 20);
+            this.txtNumAlunos.TabIndex = 10;
             // 
             // label5
             // 
@@ -149,12 +83,79 @@ namespace estudio
             this.label5.TabIndex = 9;
             this.label5.Text = "Num Max Alunos:";
             // 
-            // txtNumAlunos
+            // btnCadastrar
             // 
-            this.txtNumAlunos.Location = new System.Drawing.Point(100, 174);
-            this.txtNumAlunos.Name = "txtNumAlunos";
-            this.txtNumAlunos.Size = new System.Drawing.Size(100, 20);
-            this.txtNumAlunos.TabIndex = 10;
+            this.btnCadastrar.Location = new System.Drawing.Point(90, 208);
+            this.btnCadastrar.Name = "btnCadastrar";
+            this.btnCadastrar.Size = new System.Drawing.Size(434, 23);
+            this.btnCadastrar.TabIndex = 8;
+            this.btnCadastrar.Text = "Cadastrar";
+            this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
+            // 
+            // txtHora
+            // 
+            this.txtHora.Location = new System.Drawing.Point(100, 141);
+            this.txtHora.Name = "txtHora";
+            this.txtHora.Size = new System.Drawing.Size(100, 20);
+            this.txtHora.TabIndex = 7;
+            // 
+            // txtDiaSemana
+            // 
+            this.txtDiaSemana.Location = new System.Drawing.Point(100, 111);
+            this.txtDiaSemana.Name = "txtDiaSemana";
+            this.txtDiaSemana.Size = new System.Drawing.Size(434, 20);
+            this.txtDiaSemana.TabIndex = 6;
+            // 
+            // txtProfessor
+            // 
+            this.txtProfessor.Location = new System.Drawing.Point(100, 76);
+            this.txtProfessor.Name = "txtProfessor";
+            this.txtProfessor.Size = new System.Drawing.Size(434, 20);
+            this.txtProfessor.TabIndex = 5;
+            // 
+            // txtModalidade
+            // 
+            this.txtModalidade.Location = new System.Drawing.Point(100, 38);
+            this.txtModalidade.Name = "txtModalidade";
+            this.txtModalidade.Size = new System.Drawing.Size(434, 20);
+            this.txtModalidade.TabIndex = 4;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(43, 141);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(44, 13);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Horário:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(4, 111);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(83, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Dia da Semana:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(33, 79);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Professor:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(22, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(65, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Modalidade:";
             // 
             // dataGridViewMod
             // 

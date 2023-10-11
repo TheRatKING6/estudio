@@ -37,7 +37,7 @@ namespace estudio
             this.dia_semana = dia_semana;
             this.hora = hora;
             this.modalidade = modalidade;
-            this.NumeroAlunos = numeroAlunos;
+            this.numeroAlunos = numeroAlunos;
         }
 
         public string Professor { get => professor; set => professor = value; }
@@ -53,8 +53,8 @@ namespace estudio
             try
             {
                 DAO_Conexao.con.Open();
-                MySqlCommand insert = new MySqlCommand("insert into Estudio_Turma (idModalidade, ProfessorTurma, diaSemanaTurma, nAlunosTurma) " +
-                    "values (modalidade, professor, dia_semana, numeroAlunos)", DAO_Conexao.con);
+                MySqlCommand insert = new MySqlCommand("insert into Estudio_Turma (idModalidade, ProfessorTurma, diaSemanaTurma, horaTurma, nAlunosTurma) " +
+                    "values ("+modalidade+", '"+professor+"','"+ dia_semana+"','"+ hora +"',"+ numeroAlunos+")", DAO_Conexao.con);
                 insert.ExecuteNonQuery();
                 cad = true;
                 
@@ -73,17 +73,109 @@ namespace estudio
 
         public bool excluirTurma()
         {
-            return false;
+            bool excluido = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand delete = new MySqlCommand("delete from Estudio_Turma where idModalidade=" + modalidade + "" +
+                    " and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + hora + "'", DAO_Conexao.con);
+
+                delete.ExecuteNonQuery();
+
+                excluido = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return excluido;
         }
 
-        /*public MySqlDataReader consultarTurma()
+        public MySqlDataReader consultarTurma()
         {
+            MySqlDataReader consulta = null;
 
-        }*/
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma", DAO_Conexao.con);
 
-        /*public MySqlDataReader consultarTurma01()
+                consulta = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return consulta;
+        }
+
+        public MySqlDataReader consultarTurma01()
         {
+            MySqlDataReader buscar = null;
 
-        }*/
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma where idModalidade=" + modalidade + " " +
+                    "and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + hora + "'", DAO_Conexao.con);
+
+                buscar = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return buscar;
+        }
+
+        public MySqlDataReader consultarDiaSemana()
+        {
+            MySqlDataReader buscar = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma where idModalidade=" + modalidade, DAO_Conexao.con);
+
+                buscar = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return buscar;
+        }
+
+        public MySqlDataReader consultarHoras()
+        {
+            MySqlDataReader buscar = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma where idModalidade=" + modalidade + " and diaSemanaTurma='" + dia_semana + "'", DAO_Conexao.con);
+
+                buscar = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return buscar;
+        }
     }
 }

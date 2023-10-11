@@ -124,5 +124,12 @@ namespace estudio
             form.MdiParent = this;
             form.Show();
         }
+
+        private void excluirToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormExcluirTurma form = new FormExcluirTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }

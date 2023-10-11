@@ -16,12 +16,18 @@ namespace estudio
         public FormCadastrarTurma()
         {
             InitializeComponent();
+
+            //Coloca as modalidades do banco no datagridview
             Modalidade mod = new Modalidade();
             MySqlDataReader reader = mod.consultarTodasModalidade();
 
             while (reader.Read())
             {
-                dataGridViewMod.Rows.Add(reader["descricaoModalidade"].ToString());
+                if(!(reader["ativa"].ToString() == "1"))
+                {
+                    dataGridViewMod.Rows.Add(reader["descricaoModalidade"].ToString());
+                }
+                
             }
             DAO_Conexao.con.Close();
         }
@@ -33,17 +39,63 @@ namespace estudio
 
         private void dataGridViewMod_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            //a celuala do datagridview que voce clicar vai jogar no campo de texto da modalidade
             string modalidade = null;
             try
             {
-                modalidade = dataGridViewMod.CurrentCell.Value.ToString();  //Por algum motivo isso tá dando erro mesmo com o try-catch. ??????????????????
+                modalidade = dataGridViewMod.CurrentCell.Value.ToString();
             }
-            catch(NullReferenceException ex)
+            catch(Exception ex)
             {
-                MessageBox.Show("Você precisa selecionar entre as modalidades existentes!");
+                MessageBox.Show("Você precisa selecionar entre as modalidades existentes!" + ex.ToString()); //se vc clicar numa celula sem nada era pra aparecer isso, mas da exception e fecha mesmo com o try catch
+            }
+            finally
+            {
+                txtModalidade.Text = modalidade;
             }
             
-            txtModalidade.Text = modalidade;
+            
+        }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            //Pega o id da modalidade selecionada
+            int idModalidade = 0;
+
+            Modalidade mod = new Modalidade(txtModalidade.Text);
+
+            MySqlDataReader rd = mod.consultarNomeModalidade();
+
+            while(rd.Read())
+            {
+                idModalidade = int.Parse(rd["idEstudio_Modalidade"].ToString());
+            }
+
+            DAO_Conexao.con.Close();
+
+            //pega os outros atributos da turma
+            string professor = txtProfessor.Text;
+            string diaSemana = txtDiaSemana.Text;
+            string hora = txtHora.Text;
+            int numAlunos = int.Parse(txtNumAlunos.Text);
+
+            Turma t1 = new Turma(professor, diaSemana, hora, idModalidade, numAlunos);
+
+            if (t1.cadastrarTurma())
+            {
+                MessageBox.Show("Turma cadastrada com sucesso!");
+            }
+            else
+            {
+                MessageBox.Show("Erro ao cadastrar a turma");
+            }
+
+            //limpa os campos
+            txtModalidade.Text = null;
+            txtProfessor.Text = null;
+            txtDiaSemana.Text = null;
+            txtHora.Text = null;
+            txtNumAlunos.Text = null;
         }
     }
 }
