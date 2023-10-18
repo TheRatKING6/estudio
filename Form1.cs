@@ -67,12 +67,20 @@ namespace estudio
                 //MessageBox.Show("Conta administrativa", "Aviso", MessageBoxButtons.OK);
                 groupBox1.Visible = false;
                 menuStrip1.Enabled = true;
+                
+
             }
             else if(tipo == 2)
             {
                 groupBox1.Visible = false;
                 menuStrip1.Enabled = true;
-                cadastrarAlunoToolStripMenuItem.Enabled = false;
+                //cadastrarAlunoToolStripMenuItem.Enabled = false;
+                cadastrarLoginToolStripMenuItem.Visible = false;
+                inserirToolStripMenuItem.Visible = false;
+                excluirToolStripMenuItem.Visible = false;
+                atualizarToolStripMenuItem.Visible = false;
+                cadastrarToolStripMenuItem.Visible = false;
+                excluirToolStripMenuItem1.Visible = false;
             }
         }
 
@@ -128,6 +136,13 @@ namespace estudio
         private void excluirToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FormExcluirTurma form = new FormExcluirTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void consultarAlunoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormConsultarAluno form = new FormConsultarAluno();
             form.MdiParent = this;
             form.Show();
         }

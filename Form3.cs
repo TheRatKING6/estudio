@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,16 +24,40 @@ namespace estudio
 
             if(e.KeyChar == 13)
             {
+               
                 if (aluno.consultarAluno())
                 {
                     MessageBox.Show("Aluno já está cadastrado!");
+                    textBox2.Enabled = false;
+                    textBox3.Enabled = false;
+                    textBox4.Enabled = false;
+                    textBox7.Enabled = false;
+                    textBox8.Enabled = false;
+                    textBox9.Enabled = false;
+                    textBox10.Enabled = false;
+                    textBox11.Enabled = false;
+                    maskedTextBox2.Enabled = false;
+                    maskedTextBox3.Enabled = false;
                 }
                 else
                 {
                     textBox2.Focus();
+                    textBox2.Enabled = true;
+                    textBox3.Enabled = true;
+                    textBox4.Enabled = true;
+                    textBox7.Enabled = true;
+                    textBox8.Enabled = true;
+                    textBox9.Enabled = true;
+                    textBox10.Enabled = true;
+                    textBox11.Enabled = true;
+                    maskedTextBox2.Enabled = true;
+                    maskedTextBox3.Enabled = true;
                 }
+                
+                
+                
 
-                DAO_Conexao.con.Close();
+                //DAO_Conexao.con.Close();
             }
         }
 
@@ -40,14 +65,22 @@ namespace estudio
         {
             Aluno aluno = new Aluno(maskedTextBox1.Text, textBox2.Text, textBox3.Text, textBox9.Text, textBox4.Text, textBox10.Text, maskedTextBox2.Text, textBox7.Text, textBox11.Text, maskedTextBox3.Text, textBox8.Text);
 
-            if (aluno.cadastrarAluno())
+            if (aluno.verificaCPF())
             {
-                MessageBox.Show("Cadastro Realizado com sucesso!");
+                if (aluno.cadastrarAluno())
+                {
+                    MessageBox.Show("Cadastro Realizado com sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show("Erro no cadastro");
+                }
             }
             else
             {
-                MessageBox.Show("Erro no cadastro");
+                MessageBox.Show("O CPF que você está tentando cadastrar é inválido");
             }
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -56,14 +89,53 @@ namespace estudio
 
             if (aluno.consultarAluno())
             {
-                if (aluno.atualizarAluno())
+                MySqlDataReader reader = aluno.consultarDadosAluno();
+
+                int ativo = -1;
+
+                while (reader.Read())
                 {
-                    MessageBox.Show("Dados atualizados com sucesso!");
+                    ativo = int.Parse(reader["ativo"].ToString());
                 }
-                else
+                DAO_Conexao.con.Close();
+                if(ativo == 0)
                 {
-                    MessageBox.Show("Não foi possível atualizar os dados desse aluno");
+                    if (aluno.atualizarAluno())
+                    {
+                        MessageBox.Show("Dados atualizados com sucesso!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Não foi possível atualizar os dados desse aluno");
+                    }
                 }
+                else if(ativo == 1)
+                {
+                    DialogResult ativar = MessageBox.Show("Este aluno está desativado. Deseja reativá-lo","", MessageBoxButtons.YesNo);
+                    if(ativar == DialogResult.Yes)
+                    {
+                        if (aluno.reativarAluno() && aluno.atualizarAluno())
+                        {
+                            MessageBox.Show("Aluno atualizado e reativado com sucesso!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro ao atualizar ou reativar o aluno");
+                        }
+                    }
+                    else
+                    {
+                        if (aluno.atualizarAluno())
+                        {
+                            MessageBox.Show("Dados atualizados com sucesso!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Não foi possível atualizar os dados desse aluno");
+                        }
+                    }
+                }
+                
             }
             else
             {

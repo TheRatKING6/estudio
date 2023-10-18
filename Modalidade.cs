@@ -199,11 +199,11 @@ namespace estudio
         }
 
         /*
-         * Estava tentando fazer um metodo para modalidades em uqe ele retorna um MySqlDataReader contendo todos os Id's de modalidade que tambem aparecem na tabela Turma
+         * Estava tentando fazer um metodo para modalidades em que ele retorna um MySqlDataReader contendo todos os Id's de modalidade que tambem aparecem na tabela Turma
          * usar INNER JOIN (?)
          * rever as aulas da elaine
          * 
-        public MySqlDataReader consultarModalidadesComTurma()
+        public MySqlDataReader consultarModalidadesComTurmas()
         {
             MySqlDataReader reader = null;
 

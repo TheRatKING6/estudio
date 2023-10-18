@@ -23,7 +23,7 @@ namespace estudio
 
             while (reader.Read())
             {
-                if(!(reader["ativa"].ToString() == "1"))
+                if(!(reader["ativa"].ToString() == "1")) //verifica se aturma ta ativa ou n
                 {
                     dataGridViewMod.Rows.Add(reader["descricaoModalidade"].ToString());
                 }

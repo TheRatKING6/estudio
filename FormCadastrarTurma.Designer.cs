@@ -159,11 +159,14 @@ namespace estudio
             // 
             // dataGridViewMod
             // 
+            this.dataGridViewMod.AllowUserToAddRows = false;
+            this.dataGridViewMod.AllowUserToDeleteRows = false;
             this.dataGridViewMod.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewMod.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.modalidade});
             this.dataGridViewMod.Location = new System.Drawing.Point(44, 295);
             this.dataGridViewMod.Name = "dataGridViewMod";
+            this.dataGridViewMod.ReadOnly = true;
             this.dataGridViewMod.Size = new System.Drawing.Size(606, 223);
             this.dataGridViewMod.TabIndex = 1;
             this.dataGridViewMod.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewMod_CellClick);

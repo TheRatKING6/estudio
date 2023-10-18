@@ -213,6 +213,114 @@ namespace estudio
             return upd;
         }
 
+        public bool verificaCPF() //string CPF - sem parâmetro
+        {
+            int soma, resto, cont = 0;
+
+            soma = 0;
+
+            string CPF = this.cpf;
+
+            CPF = CPF.Trim();
+            CPF = CPF.Replace(".", "");
+            CPF = CPF.Replace("-", "");
+
+            for (int i = 0; i < CPF.Length; i++)
+            {
+                int a = CPF[0] - '0';
+                int b = CPF[i] - '0';
+
+                if (a == b)
+                {
+                    cont++;
+                }
+            }
+
+            if (cont == 11)
+            {
+                return false;
+            }
+
+            for (int i = 1; i <= 9; i++)
+            {
+                soma += int.Parse(CPF.Substring(i - 1, 1)) * (11 - i);
+            }
+
+            resto = (soma * 10) % 11;
+
+            if ((resto == 10) || (resto == 11))
+            {
+                resto = 0;
+            }
+
+            if (resto != int.Parse(CPF.Substring(9, 1)))
+            {
+                return false;
+            }
+
+            soma = 0;
+
+            for (int i = 1; i <= 10; i++)
+            {
+                soma += int.Parse(CPF.Substring(i - 1, 1)) * (12 - i);
+            }
+
+            resto = (soma * 10) % 11;
+
+            if ((resto == 10) || (resto == 11))
+            {
+                resto = 0;
+            }
+
+            if (resto != int.Parse(CPF.Substring(10, 1)))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public MySqlDataReader consultarDadosAluno()
+        {
+            MySqlDataReader aluno = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Aluno where CPFAluno='" + cpf + "'", DAO_Conexao.con);
+
+                aluno = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return aluno;
+        }
+
+        public bool reativarAluno()
+        {
+            bool exc = false;
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand exclui = new MySqlCommand("update Estudio_Aluno set ativo = 0 where CPFAluno='" + cpf + "'", DAO_Conexao.con);
+                exclui.ExecuteNonQuery();
+                exc = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return exc;
+        }
 
     }
 

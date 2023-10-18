@@ -109,36 +109,48 @@ namespace estudio
 
         private void btnExcluirTurma_Click(object sender, EventArgs e)
         {
-            //PEga o id da modalidade para poder excluir a turma
-            Modalidade mod = new Modalidade(cbxModaliade.Text);
-
-            int idModalidade = 0;
-
-            MySqlDataReader reader = mod.consultarNomeModalidade();
-
-            while (reader.Read())
+            if(String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxDia.Text) || String.IsNullOrEmpty(cbxHora.Text))
             {
-                idModalidade = int.Parse(reader["idEstudio_Modalidade"].ToString());
-            }
-
-            DAO_Conexao.con.Close();
-
-
-            //exclui a turma
-            string professor = "";
-            string diaSemana = cbxDia.Text;
-            string hora = cbxHora.Text;
-
-            Turma t1 = new Turma(professor, diaSemana, hora, idModalidade);
-
-            if (t1.excluirTurma())
-            {
-                MessageBox.Show("Turma excluida com sucesso");
+                MessageBox.Show("Voce precisa preencher todos os campos pra realizar a exclusão");
             }
             else
             {
-                MessageBox.Show("Erro ao excluir a turma");
+                //PEga o id da modalidade para poder excluir a turma
+                Modalidade mod = new Modalidade(cbxModaliade.Text);
+
+                int idModalidade = 0;
+
+                MySqlDataReader reader = mod.consultarNomeModalidade();
+
+                while (reader.Read())
+                {
+                    idModalidade = int.Parse(reader["idEstudio_Modalidade"].ToString());
+                }
+
+                DAO_Conexao.con.Close();
+
+
+                //exclui a turma
+                string professor = "";
+                string diaSemana = cbxDia.Text;
+                string hora = cbxHora.Text;
+
+                Turma t1 = new Turma(professor, diaSemana, hora, idModalidade);
+
+                if (t1.excluirTurma())
+                {
+                    MessageBox.Show("Turma excluida com sucesso");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao excluir a turma");
+                }
+
+                cbxModaliade.Text = null;
+                cbxDia.Text = null;
+                cbxDia.Text = null;
             }
+            
         }
     }
 }
