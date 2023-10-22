@@ -178,5 +178,43 @@ namespace estudio
 
             return atv;
         }
+
+        public MySqlDataReader consultarNomeModalidade()
+        {
+            MySqlDataReader reader = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand consulta = new MySqlCommand("select * from Estudio_Modalidade where descricaoModalidade ='" + descricao + "'", DAO_Conexao.con);
+
+                reader = consulta.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return reader;
+        }
+
+        /*
+         * Estava tentando fazer um metodo para modalidades em que ele retorna um MySqlDataReader contendo todos os Id's de modalidade que tambem aparecem na tabela Turma
+         * usar INNER JOIN (?)
+         * rever as aulas da elaine
+         * 
+        public MySqlDataReader consultarModalidadesComTurmas()
+        {
+            MySqlDataReader reader = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand consulta = new MySqlCommand("");
+            }
+        }
+
+        */
     }
 }

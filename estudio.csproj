@@ -82,6 +82,18 @@
     <Compile Include="FormAtualizarModalidade.Designer.cs">
       <DependentUpon>FormAtualizarModalidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormCadastrarTurma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCadastrarTurma.Designer.cs">
+      <DependentUpon>FormCadastrarTurma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormConsultarAluno.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormConsultarAluno.Designer.cs">
+      <DependentUpon>FormConsultarAluno.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormConsultarMod.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +106,12 @@
     <Compile Include="FormExcluirModalidade.Designer.cs">
       <DependentUpon>FormExcluirModalidade.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormExcluirTurma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormExcluirTurma.Designer.cs">
+      <DependentUpon>FormExcluirTurma.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormInserirModalidade.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,6 +121,7 @@
     <Compile Include="Modalidade.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Turma.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,11 +137,20 @@
     <EmbeddedResource Include="FormAtualizarModalidade.resx">
       <DependentUpon>FormAtualizarModalidade.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormCadastrarTurma.resx">
+      <DependentUpon>FormCadastrarTurma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormConsultarAluno.resx">
+      <DependentUpon>FormConsultarAluno.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormConsultarMod.resx">
       <DependentUpon>FormConsultarMod.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormExcluirModalidade.resx">
       <DependentUpon>FormExcluirModalidade.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormExcluirTurma.resx">
+      <DependentUpon>FormExcluirTurma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInserirModalidade.resx">
       <DependentUpon>FormInserirModalidade.cs</DependentUpon>

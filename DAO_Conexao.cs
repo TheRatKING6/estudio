@@ -79,6 +79,33 @@ namespace estudio
 
         }
 
+        public static bool VerificaLoginRepetido(string usuario)
+        {
+            bool login = true;
+
+            try
+            {
+                con.Open();
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Login where usuario='" + usuario + "'", con);
+                MySqlDataReader reader = select.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    login = false;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return login;
+        }
+
         
     }
 }
