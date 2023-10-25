@@ -98,6 +98,7 @@ namespace estudio
                     ativo = int.Parse(reader["ativo"].ToString());
                 }
                 DAO_Conexao.con.Close();
+
                 if(ativo == 0)
                 {
                     if (aluno.atualizarAluno())

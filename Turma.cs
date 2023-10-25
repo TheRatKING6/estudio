@@ -12,6 +12,8 @@ namespace estudio
         private string professor, dia_semana, hora;
         private int modalidade, numeroAlunos;
 
+        public Turma() { }
+
         public Turma(int modalidade)
         {
             this.modalidade = modalidade;
@@ -171,6 +173,48 @@ namespace estudio
                 buscar = select.ExecuteReader();
             }
             catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return buscar;
+        }
+
+        public MySqlDataReader consultarProfessor()
+        {
+            MySqlDataReader buscar = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma where idModalidade=" + modalidade + " " +
+                    "and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + hora + "' and ProfessorTurma='"+professor+"'", DAO_Conexao.con);
+
+                buscar = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return buscar;
+        }
+
+        public MySqlDataReader consultarTudoTurma()
+        {
+            MySqlDataReader buscar = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma where idModalidade=" + modalidade + " " +
+                    "and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + hora + "' and ProfessorTurma='" + professor + "' and nAlunosTurma="+numeroAlunos, DAO_Conexao.con);
+
+                buscar = select.ExecuteReader();
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
             }

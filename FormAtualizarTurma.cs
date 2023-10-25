@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace estudio
 {
-    public partial class FormExcluirTurma : Form
+    public partial class FormAtualizarTurma : Form
     {
-        public FormExcluirTurma()
+        public FormAtualizarTurma()
         {
             InitializeComponent();
             Modalidade mod = new Modalidade();
@@ -22,11 +22,11 @@ namespace estudio
 
             while (rd.Read())
             {
-                if(!(rd["ativa"].ToString() == "1"))
+                if (!(rd["ativa"].ToString() == "1"))
                 {
                     cbxModaliade.Items.Add(rd["descricaoModalidade"].ToString());
                 }
-                
+
             }
 
             DAO_Conexao.con.Close();
@@ -34,9 +34,11 @@ namespace estudio
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxProfessor.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FormExcluirTurma_Load(object sender, EventArgs e)
+        private void FormAtualizarTurma_Load(object sender, EventArgs e)
         {
 
         }
@@ -46,6 +48,8 @@ namespace estudio
             //Limpa os items dentro do comboBox
             cbxDia.Items.Clear();
             cbxHora.Items.Clear();
+            cbxProfessor.Items.Clear();
+            cbxQtdAluno.Items.Clear();
 
             //Pega o id da modalidade selecionada
             Modalidade mod = new Modalidade(cbxModaliade.Text);
@@ -79,6 +83,8 @@ namespace estudio
         {
             //Limpa os items dentro do comboBox
             cbxHora.Items.Clear();
+            cbxProfessor.Items.Clear();
+            cbxQtdAluno.Items.Clear();
 
             //Pega o id da modalidade selecionada
             Modalidade mod = new Modalidade(cbxModaliade.Text);
@@ -111,50 +117,27 @@ namespace estudio
             DAO_Conexao.con.Close();
         }
 
-        private void btnExcluirTurma_Click(object sender, EventArgs e)
+        private void cbxHora_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxDia.Text) || String.IsNullOrEmpty(cbxHora.Text))
+            //Limpa os items dentro do comboBox
+            cbxProfessor.Items.Clear();
+            cbxQtdAluno.Items.Clear();
+
+            //Pega o id da modalidade selecionada
+            Modalidade mod = new Modalidade(cbxModaliade.Text);
+
+            MySqlDataReader reader = mod.consultarNomeModalidade();
+
+            int idModalidade = 0;
+
+            while (reader.Read())
             {
-                MessageBox.Show("Voce precisa preencher todos os campos pra realizar a exclusão");
+                idModalidade = int.Parse(reader["idEstudio_Modalidade"].ToString());
             }
-            else
-            {
-                //PEga o id da modalidade para poder excluir a turma
-                Modalidade mod = new Modalidade(cbxModaliade.Text);
 
-                int idModalidade = 0;
+            DAO_Conexao.con.Close();
 
-                MySqlDataReader reader = mod.consultarNomeModalidade();
-
-                while (reader.Read())
-                {
-                    idModalidade = int.Parse(reader["idEstudio_Modalidade"].ToString());
-                }
-
-                DAO_Conexao.con.Close();
-
-
-                //exclui a turma
-                string professor = "";
-                string diaSemana = cbxDia.Text;
-                string hora = cbxHora.Text;
-
-                Turma t1 = new Turma(professor, diaSemana, hora, idModalidade);
-
-                if (t1.excluirTurma())
-                {
-                    MessageBox.Show("Turma excluida com sucesso");
-                }
-                else
-                {
-                    MessageBox.Show("Erro ao excluir a turma");
-                }
-
-                cbxModaliade.Text = null;
-                cbxDia.Text = null;
-                cbxHora.Text = null;
-            }
-            
+            //terminar de consultar tudo pra poder atualizar;
         }
     }
 }

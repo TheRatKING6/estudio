@@ -40,6 +40,14 @@ namespace estudio
             if(mod.excluirModalidade(index + 1))
             {
                 MessageBox.Show("Modalidade excluida com sucesso");
+                if (mod.excluirTurmasModalidade(index + 1))
+                {
+                    MessageBox.Show("Turmas dessa modalidades forem excluidas");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao excluir as turmas dessa modalidade");
+                }
             }
             else
             {

@@ -146,5 +146,19 @@ namespace estudio
             form.MdiParent = this;
             form.Show();
         }
+
+        private void consultarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormConsultarTurma form = new FormConsultarTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void atualizarToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormAtualizarTurma form = new FormAtualizarTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
     }
 }
