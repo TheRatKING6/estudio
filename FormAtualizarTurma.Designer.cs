@@ -30,6 +30,10 @@ namespace estudio
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxQtdAluno = new System.Windows.Forms.ComboBox();
+            this.cbxProfessor = new System.Windows.Forms.ComboBox();
+            this.lblQtdAl = new System.Windows.Forms.Label();
+            this.lblProfessor = new System.Windows.Forms.Label();
             this.btnAtualizarTurma = new System.Windows.Forms.Button();
             this.cbxHora = new System.Windows.Forms.ComboBox();
             this.cbxDia = new System.Windows.Forms.ComboBox();
@@ -37,10 +41,6 @@ namespace estudio
             this.lblHora = new System.Windows.Forms.Label();
             this.lblDia = new System.Windows.Forms.Label();
             this.lblModalidade = new System.Windows.Forms.Label();
-            this.lblProfessor = new System.Windows.Forms.Label();
-            this.lblQtdAl = new System.Windows.Forms.Label();
-            this.cbxProfessor = new System.Windows.Forms.ComboBox();
-            this.cbxQtdAluno = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +64,42 @@ namespace estudio
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Turma";
             // 
+            // cbxQtdAluno
+            // 
+            this.cbxQtdAluno.FormattingEnabled = true;
+            this.cbxQtdAluno.Location = new System.Drawing.Point(177, 189);
+            this.cbxQtdAluno.Name = "cbxQtdAluno";
+            this.cbxQtdAluno.Size = new System.Drawing.Size(272, 21);
+            this.cbxQtdAluno.TabIndex = 10;
+            this.cbxQtdAluno.SelectedIndexChanged += new System.EventHandler(this.cbxQtdAluno_SelectedIndexChanged);
+            // 
+            // cbxProfessor
+            // 
+            this.cbxProfessor.FormattingEnabled = true;
+            this.cbxProfessor.Location = new System.Drawing.Point(177, 151);
+            this.cbxProfessor.Name = "cbxProfessor";
+            this.cbxProfessor.Size = new System.Drawing.Size(272, 21);
+            this.cbxProfessor.TabIndex = 9;
+            this.cbxProfessor.SelectedIndexChanged += new System.EventHandler(this.cbxProfessor_SelectedIndexChanged);
+            // 
+            // lblQtdAl
+            // 
+            this.lblQtdAl.AutoSize = true;
+            this.lblQtdAl.Location = new System.Drawing.Point(88, 189);
+            this.lblQtdAl.Name = "lblQtdAl";
+            this.lblQtdAl.Size = new System.Drawing.Size(78, 13);
+            this.lblQtdAl.TabIndex = 8;
+            this.lblQtdAl.Text = "Qtd max aluno:";
+            // 
+            // lblProfessor
+            // 
+            this.lblProfessor.AutoSize = true;
+            this.lblProfessor.Location = new System.Drawing.Point(85, 151);
+            this.lblProfessor.Name = "lblProfessor";
+            this.lblProfessor.Size = new System.Drawing.Size(54, 13);
+            this.lblProfessor.TabIndex = 7;
+            this.lblProfessor.Text = "Professor:";
+            // 
             // btnAtualizarTurma
             // 
             this.btnAtualizarTurma.Location = new System.Drawing.Point(88, 254);
@@ -72,6 +108,7 @@ namespace estudio
             this.btnAtualizarTurma.TabIndex = 6;
             this.btnAtualizarTurma.Text = "Atualizar";
             this.btnAtualizarTurma.UseVisualStyleBackColor = true;
+            this.btnAtualizarTurma.Click += new System.EventHandler(this.btnAtualizarTurma_Click);
             // 
             // cbxHora
             // 
@@ -127,45 +164,11 @@ namespace estudio
             this.lblModalidade.TabIndex = 0;
             this.lblModalidade.Text = "Modalidade:";
             // 
-            // lblProfessor
-            // 
-            this.lblProfessor.AutoSize = true;
-            this.lblProfessor.Location = new System.Drawing.Point(85, 151);
-            this.lblProfessor.Name = "lblProfessor";
-            this.lblProfessor.Size = new System.Drawing.Size(54, 13);
-            this.lblProfessor.TabIndex = 7;
-            this.lblProfessor.Text = "Professor:";
-            // 
-            // lblQtdAl
-            // 
-            this.lblQtdAl.AutoSize = true;
-            this.lblQtdAl.Location = new System.Drawing.Point(88, 189);
-            this.lblQtdAl.Name = "lblQtdAl";
-            this.lblQtdAl.Size = new System.Drawing.Size(78, 13);
-            this.lblQtdAl.TabIndex = 8;
-            this.lblQtdAl.Text = "Qtd max aluno:";
-            // 
-            // cbxProfessor
-            // 
-            this.cbxProfessor.FormattingEnabled = true;
-            this.cbxProfessor.Location = new System.Drawing.Point(177, 151);
-            this.cbxProfessor.Name = "cbxProfessor";
-            this.cbxProfessor.Size = new System.Drawing.Size(272, 21);
-            this.cbxProfessor.TabIndex = 9;
-            // 
-            // cbxQtdAluno
-            // 
-            this.cbxQtdAluno.FormattingEnabled = true;
-            this.cbxQtdAluno.Location = new System.Drawing.Point(177, 189);
-            this.cbxQtdAluno.Name = "cbxQtdAluno";
-            this.cbxQtdAluno.Size = new System.Drawing.Size(272, 21);
-            this.cbxQtdAluno.TabIndex = 10;
-            // 
             // FormAtualizarTurma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1231, 582);
+            this.ClientSize = new System.Drawing.Size(882, 582);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAtualizarTurma";
             this.Text = "Atualizar";
@@ -179,8 +182,6 @@ namespace estudio
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox cbxQtdAluno;
-        private System.Windows.Forms.ComboBox cbxProfessor;
         private System.Windows.Forms.Label lblQtdAl;
         private System.Windows.Forms.Label lblProfessor;
         private System.Windows.Forms.Button btnAtualizarTurma;
@@ -190,5 +191,7 @@ namespace estudio
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Label lblDia;
         private System.Windows.Forms.Label lblModalidade;
+        private System.Windows.Forms.ComboBox cbxQtdAluno;
+        private System.Windows.Forms.ComboBox cbxProfessor;
     }
 }

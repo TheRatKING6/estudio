@@ -19,6 +19,13 @@ namespace estudio
             this.modalidade = modalidade;
         }
 
+        public Turma(int modalidade, string diaSemana, string hora)
+        {
+            this.modalidade = modalidade;
+            dia_semana = diaSemana;
+            this.hora = hora;
+        }
+
         public Turma(string professor, string dia_semana, string hora, int modalidade)
         {
             this.professor = professor;
@@ -39,6 +46,14 @@ namespace estudio
             this.dia_semana = dia_semana;
             this.hora = hora;
             this.modalidade = modalidade;
+            this.numeroAlunos = numeroAlunos;
+        }
+
+        public Turma(string professor, string dia_semana, int numeroAlunos, string hora)
+        {
+            this.professor = professor;
+            this.dia_semana = dia_semana;
+            this.hora = hora;
             this.numeroAlunos = numeroAlunos;
         }
 
@@ -220,6 +235,34 @@ namespace estudio
             }
 
             return buscar;
+        }
+
+        public bool atualizarTurma(string prof, string dia, string hora, int nAlunos)
+        {
+            bool atualizar = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand update = new MySqlCommand("update Estudio_Turma set diaSemanaTurma='" + dia + "', horaTurma='" + hora + "', " +
+                    "ProfessorTurma='" + prof + "', nAlunosTurma=" + nAlunos + " where idModalidade=" + modalidade +
+                    " and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + this.hora + "' and ProfessorTurma='" + professor + "' and nAlunosTurma=" + numeroAlunos, DAO_Conexao.con);
+
+                update.ExecuteNonQuery();
+
+                atualizar = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return atualizar;
         }
     }
 }
