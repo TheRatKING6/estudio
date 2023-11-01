@@ -322,6 +322,19 @@ namespace estudio
             return exc;
         }
 
+        public MySqlDataReader consultarTodosAlunos()
+        {
+            //continuar daqui
+            MySqlDataReader reader = null;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                //MySqlCommand select = 
+            }
+        }
+
     }
 
     

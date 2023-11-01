@@ -130,7 +130,7 @@ namespace estudio
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(744, 604);
+            this.ClientSize = new System.Drawing.Size(793, 604);
             this.Controls.Add(this.lbxTurmas);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormConsultarTurma";
