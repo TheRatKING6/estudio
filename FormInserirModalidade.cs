@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -21,14 +22,28 @@ namespace estudio
         {
             Modalidade mod = new Modalidade(txtDescricao.Text, float.Parse(txtPreco.Text), int.Parse(txtQtdAlunos.Text), int.Parse(txtQtdAulas.Text));
 
-            if (mod.cadastrarModalidade())
+            MySqlDataReader existe = mod.consultarNomeModalidade();
+
+            
+
+            if (existe.Read())
             {
-                MessageBox.Show("Modalidade cadastrada com sucesso!");
+                MessageBox.Show("Já existe uma modalidade cadastrada com essa descrição!");
             }
             else
             {
-                MessageBox.Show("Erro ao cadastrar");
+                DAO_Conexao.con.Close();
+                if (mod.cadastrarModalidade())
+                {
+                    MessageBox.Show("Modalidade cadastrada com sucesso!");
+                }
+                else
+                {
+                    MessageBox.Show("Erro ao cadastrar");
+                }
             }
+
+            
 
             txtDescricao.Text = null;
             txtPreco.Text = null;

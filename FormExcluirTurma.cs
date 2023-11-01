@@ -30,6 +30,10 @@ namespace estudio
             }
 
             DAO_Conexao.con.Close();
+
+            cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
         private void FormExcluirTurma_Load(object sender, EventArgs e)
@@ -148,7 +152,7 @@ namespace estudio
 
                 cbxModaliade.Text = null;
                 cbxDia.Text = null;
-                cbxDia.Text = null;
+                cbxHora.Text = null;
             }
             
         }

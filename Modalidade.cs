@@ -198,6 +198,31 @@ namespace estudio
             return reader;
         }
 
+        public bool excluirTurmasModalidade(int id)
+        {
+            bool excluir = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+                MySqlCommand delete = new MySqlCommand("delete from Estudio_Turma where idModalidade=" + id, DAO_Conexao.con);
+
+                delete.ExecuteNonQuery();
+
+                excluir = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return excluir;
+        }
+
         /*
          * Estava tentando fazer um metodo para modalidades em que ele retorna um MySqlDataReader contendo todos os Id's de modalidade que tambem aparecem na tabela Turma
          * usar INNER JOIN (?)
