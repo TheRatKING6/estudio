@@ -331,9 +331,44 @@ namespace estudio
             {
                 DAO_Conexao.con.Open();
 
-                //MySqlCommand select = 
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Aluno", DAO_Conexao.con);
+
+                reader = select.ExecuteReader();
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return reader;
         }
+
+        public bool cadastrarAlunoTurma(int idTurma)
+        {
+            bool cadastro = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand insert = new MySqlCommand("insert into Estudio_Turma_Aluno (CPFAluno, idTurma) values ('" + cpf + "', " + idTurma + ")", DAO_Conexao.con);
+
+                insert.ExecuteNonQuery();
+
+                cadastro = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return cadastro;
+        }
+
 
     }
 

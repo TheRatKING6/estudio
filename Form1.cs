@@ -16,6 +16,7 @@ namespace estudio
         {
             InitializeComponent();
 
+            WindowState = FormWindowState.Maximized;
             menuStrip1.Enabled = false;
 
             if (DAO_Conexao.getConexao("143.106.241.3", "cl202249", "cl202249", "cl*01102006"))
@@ -157,6 +158,13 @@ namespace estudio
         private void atualizarToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             FormAtualizarTurma form = new FormAtualizarTurma();
+            form.MdiParent = this;
+            form.Show();
+        }
+
+        private void cadastarToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormCadastrarAlunoTurma form = new FormCadastrarAlunoTurma();
             form.MdiParent = this;
             form.Show();
         }

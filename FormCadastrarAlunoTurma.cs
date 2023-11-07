@@ -14,7 +14,7 @@ namespace estudio
     public partial class FormCadastrarAlunoTurma : Form
     {
 
-        Turma turmaCadastrar;
+        Turma turmaBuscar;
         public FormCadastrarAlunoTurma()
         {
             InitializeComponent();
@@ -36,7 +36,22 @@ namespace estudio
 
             Aluno al = new Aluno();
 
-            rd = al.consultarTodosAlunos(); //continuar daqui
+            rd = al.consultarTodosAlunos();
+            //verifica se os alunos estao ativos e coloca o nome + o cpf deles na comboBox
+            while (rd.Read())
+            {
+                string nomecpf = String.Empty;
+
+                if (!(rd["ativo"].ToString() == "1"))
+                {
+                    nomecpf = rd["CPFAluno"].ToString() + " - " + rd["nomeAluno"].ToString();
+                    cbxAluno.Items.Add(nomecpf);
+                }
+
+               
+            }
+
+            DAO_Conexao.con.Close();
 
             //Desativa a edicao dos negocio
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -221,7 +236,56 @@ namespace estudio
 
             //Pega a turma com todas as informãcoes selecionadas
 
-            turmaCadastrar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
+            turmaBuscar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
+        }
+
+        private void btnCadastrarAluno_Click(object sender, EventArgs e)
+        {
+            Turma tm = new Turma();
+
+            if(String.IsNullOrEmpty(cbxAluno.Text) || String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text) 
+                || String.IsNullOrEmpty(cbxHora.Text) || String.IsNullOrEmpty(cbxQtdAluno.Text))
+            {
+                MessageBox.Show("Por favor preencha todos os campos antes de prosseguir");
+            }
+            else
+            {
+                tm = turmaBuscar;
+
+                MySqlDataReader reader = tm.consultarTudoTurma();
+                int idTurma = 0;
+                while (reader.Read())
+                {
+                    idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
+                }
+
+                DAO_Conexao.con.Close();
+
+                if (tm.verificaMaximoAlunos(idTurma))
+                {
+                    MessageBox.Show("A turma que você está tentando se cadastrar já está cheia");
+                }
+                else
+                {
+                    string cpfAluno = cbxAluno.Text; //pega todo o texto da cbxAluno
+
+                    cpfAluno = cpfAluno.Substring(0, 14); //pega so o cpf do aluno
+
+                    Aluno al = new Aluno(cpfAluno);
+                    if(tm.verificaAlunoCadastrado(cpfAluno, idTurma)) //ve se já ta cadastrado naquela turma especifica
+                    {
+                        MessageBox.Show("Este aluno já está cadastrado nesta turma");
+                    }
+                    else if (al.cadastrarAlunoTurma(idTurma)) //cadastra ele
+                    {
+                        MessageBox.Show("Aluno cadastrado na turma com sucesso");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao cadastrar o aluno na turma");
+                    }
+                }
+            }
         }
     }
 }

@@ -182,6 +182,7 @@ namespace estudio
             this.btnCadastrarAluno.TabIndex = 5;
             this.btnCadastrarAluno.Text = "Cadastar";
             this.btnCadastrarAluno.UseVisualStyleBackColor = true;
+            this.btnCadastrarAluno.Click += new System.EventHandler(this.btnCadastrarAluno_Click);
             // 
             // FormCadastrarAlunoTurma
             // 
