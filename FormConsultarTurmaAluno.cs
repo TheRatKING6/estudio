@@ -11,12 +11,13 @@ using System.Windows.Forms;
 
 namespace estudio
 {
-    public partial class FormAtualizarTurma : Form
+    public partial class FormConsultarTurmaAluno : Form
     {
-        Turma turmaAtualizar;
-        public FormAtualizarTurma()
+        Turma turmaBuscar;
+        public FormConsultarTurmaAluno()
         {
             InitializeComponent();
+            //coloca todas as modalidades no comboBox
             Modalidade mod = new Modalidade();
 
             MySqlDataReader rd = mod.consultarTodasModalidade();
@@ -32,6 +33,7 @@ namespace estudio
 
             DAO_Conexao.con.Close();
 
+            //desativa edicao dos bagulho
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -39,7 +41,7 @@ namespace estudio
             cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FormAtualizarTurma_Load(object sender, EventArgs e)
+        private void FormConsultarTurmaAluno_Load(object sender, EventArgs e)
         {
 
         }
@@ -153,7 +155,6 @@ namespace estudio
             }
 
             DAO_Conexao.con.Close();
-
         }
 
         private void cbxProfessor_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,48 +215,54 @@ namespace estudio
 
             //Pega a turma com todas as informãcoes selecionadas
 
-            turmaAtualizar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
-            Console.WriteLine("\n\n\n\n coisas \n\n\n\n");
-            //cbxModaliade.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxHora.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxDia.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxProfessor.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDown;
+            turmaBuscar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
         }
 
-        private void btnAtualizarTurma_Click(object sender, EventArgs e)
+        private void btnConsultar_Click(object sender, EventArgs e)
         {
-            //pega o id da turma
-            MySqlDataReader reader = turmaAtualizar.consultarTudoTurma();
-            int idTurma = 0;
-            while(reader.Read())
+            lbxAlunos.Items.Clear();
+
+            Turma tm = new Turma();
+            //ve se ta tudo preenchido
+            if (String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text)
+                || String.IsNullOrEmpty(cbxHora.Text) || String.IsNullOrEmpty(cbxQtdAluno.Text))
             {
-                idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
-            }
-
-            DAO_Conexao.con.Close();
-            
-            turmaAtualizar.Dia_semana = cbxDia.Text;
-            turmaAtualizar.Hora = cbxHora.Text;
-            turmaAtualizar.Professor = cbxProfessor.Text;
-            turmaAtualizar.NumeroAlunos = int.Parse(cbxQtdAluno.Text);
-
-            
-
-            if(turmaAtualizar.atualizarTurma(idTurma))
-            {
-                MessageBox.Show("Sucesso ao atualizar turma");
+                MessageBox.Show("Por favor preencha todos os campos antes de prosseguir");
             }
             else
             {
-                MessageBox.Show("Erro ao atualizar a turma");
-            }
+                tm = turmaBuscar;
+                //pega o id da turma
+                MySqlDataReader reader = tm.consultarTudoTurma();
+                int idTurma = 0;
+                while (reader.Read())
+                {
+                    idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
+                }
 
-            cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxProfessor.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
+                DAO_Conexao.con.Close();
+
+
+                Aluno al = new Aluno();
+                List<string> cpfAlunos = new List<string>();
+                MySqlDataReader rd = al.consultarCpfTurma(idTurma);
+
+                while (rd.Read())
+                {
+                    cpfAlunos.Add(rd["CPFAluno"].ToString()); //pega os cpfs na turma escolhida
+                }
+                DAO_Conexao.con.Close();
+
+                foreach(string s in cpfAlunos) //usa os cpf pra conseguir o nome e exibir na listBox
+                {
+                    //Console.WriteLine(s);
+                    Aluno aluno = new Aluno(s);
+
+                    lbxAlunos.Items.Add(aluno.consultarNomeAlunoTurma());
+                }
+
+                //finalmente eu consegui isso, nunca estive tao feliz
+            }
         }
     }
 }

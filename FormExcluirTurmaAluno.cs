@@ -11,12 +11,14 @@ using System.Windows.Forms;
 
 namespace estudio
 {
-    public partial class FormAtualizarTurma : Form
+    public partial class FormExcluirTurmaAluno : Form
     {
-        Turma turmaAtualizar;
-        public FormAtualizarTurma()
+        Turma turmaBuscar;
+
+        public FormExcluirTurmaAluno()
         {
             InitializeComponent();
+            //coloca todas as modalidades no comboBox
             Modalidade mod = new Modalidade();
 
             MySqlDataReader rd = mod.consultarTodasModalidade();
@@ -32,14 +34,36 @@ namespace estudio
 
             DAO_Conexao.con.Close();
 
+            Aluno al = new Aluno();
+
+            rd = al.consultarTodosAlunos();
+            //verifica se os alunos estao ativos e coloca o nome + o cpf deles na comboBox
+            while (rd.Read())
+            {
+                string nomecpf = String.Empty;
+
+                if (!(rd["ativo"].ToString() == "1"))
+                {
+                    nomecpf = rd["CPFAluno"].ToString() + " - " + rd["nomeAluno"].ToString();
+                    cbxAluno.Items.Add(nomecpf);
+                }
+
+
+            }
+
+            DAO_Conexao.con.Close();
+
+            cbxAluno.Enabled = false;
+            //Desativa a edicao dos negocio
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxProfessor.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxAluno.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FormAtualizarTurma_Load(object sender, EventArgs e)
+        private void FormExcluirTurmaAluno_Load(object sender, EventArgs e)
         {
 
         }
@@ -153,7 +177,6 @@ namespace estudio
             }
 
             DAO_Conexao.con.Close();
-
         }
 
         private void cbxProfessor_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,48 +237,57 @@ namespace estudio
 
             //Pega a turma com todas as informãcoes selecionadas
 
-            turmaAtualizar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
-            Console.WriteLine("\n\n\n\n coisas \n\n\n\n");
-            //cbxModaliade.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxHora.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxDia.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxProfessor.DropDownStyle = ComboBoxStyle.DropDown;
-            cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDown;
+            turmaBuscar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
+
+            cbxAluno.Enabled = true;
         }
 
-        private void btnAtualizarTurma_Click(object sender, EventArgs e)
+        private void btnExcluirAluno_Click(object sender, EventArgs e)
         {
-            //pega o id da turma
-            MySqlDataReader reader = turmaAtualizar.consultarTudoTurma();
-            int idTurma = 0;
-            while(reader.Read())
+            Turma tm = new Turma();
+
+            if (String.IsNullOrEmpty(cbxAluno.Text) || String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text)
+                || String.IsNullOrEmpty(cbxHora.Text) || String.IsNullOrEmpty(cbxQtdAluno.Text))
             {
-                idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
-            }
-
-            DAO_Conexao.con.Close();
-            
-            turmaAtualizar.Dia_semana = cbxDia.Text;
-            turmaAtualizar.Hora = cbxHora.Text;
-            turmaAtualizar.Professor = cbxProfessor.Text;
-            turmaAtualizar.NumeroAlunos = int.Parse(cbxQtdAluno.Text);
-
-            
-
-            if(turmaAtualizar.atualizarTurma(idTurma))
-            {
-                MessageBox.Show("Sucesso ao atualizar turma");
+                MessageBox.Show("Por favor preencha todos os campos antes de prosseguir");
             }
             else
             {
-                MessageBox.Show("Erro ao atualizar a turma");
-            }
+                tm = turmaBuscar;
+                //pega o id da turma
+                MySqlDataReader reader = tm.consultarTudoTurma();
+                int idTurma = 0;
+                while (reader.Read())
+                {
+                    idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
+                }
 
-            cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxProfessor.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
+                DAO_Conexao.con.Close();
+
+
+
+                string cpfAluno = cbxAluno.Text; //pega todo o texto da cbxAluno
+
+                cpfAluno = cpfAluno.Substring(0, 14); //pega so o cpf do aluno
+
+                Aluno al = new Aluno(cpfAluno);
+                if(tm.verificaAlunoCadastrado(cpfAluno, idTurma))
+                {
+                    if (al.excluirAlunoTurma(idTurma))
+                    {
+                        MessageBox.Show("Aluno excluido com sucesso");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erro ao excluir aluno");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Impossível excluir aluno: ele não está cadastrado na turma selecionada");
+                }
+                
+            }
         }
     }
 }

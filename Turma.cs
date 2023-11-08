@@ -237,7 +237,7 @@ namespace estudio
             return buscar;
         }
 
-        public bool atualizarTurma(string prof, string dia, string hora, int nAlunos)
+        public bool atualizarTurma(int id)
         {
             bool atualizar = false;
 
@@ -245,9 +245,8 @@ namespace estudio
             {
                 DAO_Conexao.con.Open();
 
-                MySqlCommand update = new MySqlCommand("update Estudio_Turma set diaSemanaTurma='" + dia + "', horaTurma='" + hora + "', " +
-                    "ProfessorTurma='" + prof + "', nAlunosTurma=" + nAlunos + " where idModalidade=" + modalidade +
-                    " and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + this.hora + "' and ProfessorTurma='" + professor + "' and nAlunosTurma=" + numeroAlunos, DAO_Conexao.con);
+                MySqlCommand update = new MySqlCommand("update Estudio_Turma set diaSemanaTurma='" + dia_semana + "', horaTurma='" + hora + "', " +
+                    "ProfessorTurma='" + professor + "', nAlunosTurma=" + numeroAlunos + " where idEstudio_Turma=" + id, DAO_Conexao.con);
 
                 update.ExecuteNonQuery();
 
@@ -264,5 +263,70 @@ namespace estudio
 
             return atualizar;
         }
+
+        public bool verificaMaximoAlunos(int id)
+        {
+            bool cheio = false;
+            int qtdAlunos = 0;
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand selectQtdAlunos = new MySqlCommand("select count(*) from Estudio_Turma_Aluno where idTurma= " + id, DAO_Conexao.con);
+                
+                qtdAlunos = Convert.ToInt32(selectQtdAlunos.ExecuteScalar()); //pega o resultado do count e transforma em int
+
+                
+
+                MySqlCommand selectMaxAlunos = new MySqlCommand("select nAlunosTurma from Estudio_Turma where idEstudio_Turma = " + id, DAO_Conexao.con);
+
+                int maxAlunos = Convert.ToInt32(selectMaxAlunos.ExecuteScalar()); //pega o resultado e transforma em int
+                //Console.WriteLine("\n\n\n" + maxAlunos + "\n\n\n");
+                if (qtdAlunos >= maxAlunos)
+                {
+                    cheio = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return cheio;
+        }
+
+        public bool verificaAlunoCadastrado(string cpf, int id)
+        {
+            bool cadastrado = false;
+
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select * from Estudio_Turma_Aluno where CPFAluno ='" + cpf + "' and idTurma="+ id, DAO_Conexao.con);
+
+                MySqlDataReader rd = select.ExecuteReader();
+
+                if (rd.Read())
+                {
+                    cadastrado = true;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return cadastrado;
+        }
+
     }
 }

@@ -1,7 +1,6 @@
-﻿
-namespace estudio
+﻿namespace estudio
 {
-    partial class FormConsultarTurma
+    partial class FormConsultarTurmaAluno
     {
         /// <summary>
         /// Required designer variable.
@@ -30,42 +29,75 @@ namespace estudio
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnConsultarTurma = new System.Windows.Forms.Button();
+            this.cbxQtdAluno = new System.Windows.Forms.ComboBox();
+            this.cbxProfessor = new System.Windows.Forms.ComboBox();
+            this.lblQtdAl = new System.Windows.Forms.Label();
+            this.lblProfessor = new System.Windows.Forms.Label();
             this.cbxHora = new System.Windows.Forms.ComboBox();
             this.cbxDia = new System.Windows.Forms.ComboBox();
             this.cbxModaliade = new System.Windows.Forms.ComboBox();
             this.lblHora = new System.Windows.Forms.Label();
             this.lblDia = new System.Windows.Forms.Label();
             this.lblModalidade = new System.Windows.Forms.Label();
-            this.lbxTurmas = new System.Windows.Forms.ListBox();
+            this.btnConsultar = new System.Windows.Forms.Button();
+            this.lbxAlunos = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.btnConsultarTurma);
+            this.groupBox1.Controls.Add(this.cbxQtdAluno);
+            this.groupBox1.Controls.Add(this.cbxProfessor);
+            this.groupBox1.Controls.Add(this.lblQtdAl);
+            this.groupBox1.Controls.Add(this.lblProfessor);
             this.groupBox1.Controls.Add(this.cbxHora);
             this.groupBox1.Controls.Add(this.cbxDia);
             this.groupBox1.Controls.Add(this.cbxModaliade);
             this.groupBox1.Controls.Add(this.lblHora);
             this.groupBox1.Controls.Add(this.lblDia);
             this.groupBox1.Controls.Add(this.lblModalidade);
-            this.groupBox1.Location = new System.Drawing.Point(77, 35);
+            this.groupBox1.Location = new System.Drawing.Point(93, 46);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(552, 211);
-            this.groupBox1.TabIndex = 1;
+            this.groupBox1.Size = new System.Drawing.Size(552, 237);
+            this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Turma";
             // 
-            // btnConsultarTurma
+            // cbxQtdAluno
             // 
-            this.btnConsultarTurma.Location = new System.Drawing.Point(88, 177);
-            this.btnConsultarTurma.Name = "btnConsultarTurma";
-            this.btnConsultarTurma.Size = new System.Drawing.Size(361, 23);
-            this.btnConsultarTurma.TabIndex = 6;
-            this.btnConsultarTurma.Text = "Consultar";
-            this.btnConsultarTurma.UseVisualStyleBackColor = true;
-            this.btnConsultarTurma.Click += new System.EventHandler(this.btnConsultarTurma_Click);
+            this.cbxQtdAluno.FormattingEnabled = true;
+            this.cbxQtdAluno.Location = new System.Drawing.Point(177, 189);
+            this.cbxQtdAluno.Name = "cbxQtdAluno";
+            this.cbxQtdAluno.Size = new System.Drawing.Size(272, 21);
+            this.cbxQtdAluno.TabIndex = 10;
+            this.cbxQtdAluno.SelectedIndexChanged += new System.EventHandler(this.cbxQtdAluno_SelectedIndexChanged);
+            // 
+            // cbxProfessor
+            // 
+            this.cbxProfessor.FormattingEnabled = true;
+            this.cbxProfessor.Location = new System.Drawing.Point(177, 151);
+            this.cbxProfessor.Name = "cbxProfessor";
+            this.cbxProfessor.Size = new System.Drawing.Size(272, 21);
+            this.cbxProfessor.TabIndex = 9;
+            this.cbxProfessor.SelectedIndexChanged += new System.EventHandler(this.cbxProfessor_SelectedIndexChanged);
+            // 
+            // lblQtdAl
+            // 
+            this.lblQtdAl.AutoSize = true;
+            this.lblQtdAl.Location = new System.Drawing.Point(88, 189);
+            this.lblQtdAl.Name = "lblQtdAl";
+            this.lblQtdAl.Size = new System.Drawing.Size(78, 13);
+            this.lblQtdAl.TabIndex = 8;
+            this.lblQtdAl.Text = "Qtd max aluno:";
+            // 
+            // lblProfessor
+            // 
+            this.lblProfessor.AutoSize = true;
+            this.lblProfessor.Location = new System.Drawing.Point(85, 151);
+            this.lblProfessor.Name = "lblProfessor";
+            this.lblProfessor.Size = new System.Drawing.Size(54, 13);
+            this.lblProfessor.TabIndex = 7;
+            this.lblProfessor.Text = "Professor:";
             // 
             // cbxHora
             // 
@@ -74,6 +106,7 @@ namespace estudio
             this.cbxHora.Name = "cbxHora";
             this.cbxHora.Size = new System.Drawing.Size(272, 21);
             this.cbxHora.TabIndex = 5;
+            this.cbxHora.SelectedIndexChanged += new System.EventHandler(this.cbxHora_SelectedIndexChanged);
             // 
             // cbxDia
             // 
@@ -82,6 +115,7 @@ namespace estudio
             this.cbxDia.Name = "cbxDia";
             this.cbxDia.Size = new System.Drawing.Size(272, 21);
             this.cbxDia.TabIndex = 4;
+            this.cbxDia.SelectedIndexChanged += new System.EventHandler(this.cbxDia_SelectedIndexChanged);
             // 
             // cbxModaliade
             // 
@@ -90,6 +124,7 @@ namespace estudio
             this.cbxModaliade.Name = "cbxModaliade";
             this.cbxModaliade.Size = new System.Drawing.Size(272, 21);
             this.cbxModaliade.TabIndex = 3;
+            this.cbxModaliade.SelectedIndexChanged += new System.EventHandler(this.cbxModaliade_SelectedIndexChanged);
             // 
             // lblHora
             // 
@@ -118,24 +153,35 @@ namespace estudio
             this.lblModalidade.TabIndex = 0;
             this.lblModalidade.Text = "Modalidade:";
             // 
-            // lbxTurmas
+            // btnConsultar
             // 
-            this.lbxTurmas.FormattingEnabled = true;
-            this.lbxTurmas.Location = new System.Drawing.Point(77, 295);
-            this.lbxTurmas.Name = "lbxTurmas";
-            this.lbxTurmas.Size = new System.Drawing.Size(655, 199);
-            this.lbxTurmas.TabIndex = 2;
+            this.btnConsultar.Location = new System.Drawing.Point(93, 298);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(162, 23);
+            this.btnConsultar.TabIndex = 8;
+            this.btnConsultar.Text = "Consultar alunos na turma";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
             // 
-            // FormConsultarTurma
+            // lbxAlunos
+            // 
+            this.lbxAlunos.FormattingEnabled = true;
+            this.lbxAlunos.Location = new System.Drawing.Point(270, 298);
+            this.lbxAlunos.Name = "lbxAlunos";
+            this.lbxAlunos.Size = new System.Drawing.Size(375, 199);
+            this.lbxAlunos.TabIndex = 9;
+            // 
+            // FormConsultarTurmaAluno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(793, 604);
-            this.Controls.Add(this.lbxTurmas);
+            this.ClientSize = new System.Drawing.Size(1146, 572);
+            this.Controls.Add(this.lbxAlunos);
+            this.Controls.Add(this.btnConsultar);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormConsultarTurma";
-            this.Text = "Consultar";
-            this.Load += new System.EventHandler(this.FormConsultarTurma_Load);
+            this.Name = "FormConsultarTurmaAluno";
+            this.Text = "FormConsultarTurmaAluno";
+            this.Load += new System.EventHandler(this.FormConsultarTurmaAluno_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -145,13 +191,17 @@ namespace estudio
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnConsultarTurma;
+        private System.Windows.Forms.ComboBox cbxQtdAluno;
+        private System.Windows.Forms.ComboBox cbxProfessor;
+        private System.Windows.Forms.Label lblQtdAl;
+        private System.Windows.Forms.Label lblProfessor;
         private System.Windows.Forms.ComboBox cbxHora;
         private System.Windows.Forms.ComboBox cbxDia;
         private System.Windows.Forms.ComboBox cbxModaliade;
         private System.Windows.Forms.Label lblHora;
         private System.Windows.Forms.Label lblDia;
         private System.Windows.Forms.Label lblModalidade;
-        private System.Windows.Forms.ListBox lbxTurmas;
+        private System.Windows.Forms.Button btnConsultar;
+        private System.Windows.Forms.ListBox lbxAlunos;
     }
 }
