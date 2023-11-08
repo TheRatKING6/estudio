@@ -11,11 +11,10 @@ using System.Windows.Forms;
 
 namespace estudio
 {
-    public partial class FormCadastrarAlunoTurma : Form
+    public partial class FormConsultarTurmaAluno : Form
     {
-
         Turma turmaBuscar;
-        public FormCadastrarAlunoTurma()
+        public FormConsultarTurmaAluno()
         {
             InitializeComponent();
             //coloca todas as modalidades no comboBox
@@ -34,35 +33,15 @@ namespace estudio
 
             DAO_Conexao.con.Close();
 
-            Aluno al = new Aluno();
-
-            rd = al.consultarTodosAlunos();
-            //verifica se os alunos estao ativos e coloca o nome + o cpf deles na comboBox
-            while (rd.Read())
-            {
-                string nomecpf = String.Empty;
-
-                if (!(rd["ativo"].ToString() == "1"))
-                {
-                    nomecpf = rd["CPFAluno"].ToString() + " - " + rd["nomeAluno"].ToString();
-                    cbxAluno.Items.Add(nomecpf);
-                }
-
-               
-            }
-
-            DAO_Conexao.con.Close();
-
-            //Desativa a edicao dos negocio
+            //desativa edicao dos bagulho
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxDia.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxProfessor.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxQtdAluno.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbxAluno.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FormCadastrarAlunoTurma_Load(object sender, EventArgs e)
+        private void FormConsultarTurmaAluno_Load(object sender, EventArgs e)
         {
 
         }
@@ -239,11 +218,13 @@ namespace estudio
             turmaBuscar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
         }
 
-        private void btnCadastrarAluno_Click(object sender, EventArgs e)
+        private void btnConsultar_Click(object sender, EventArgs e)
         {
-            Turma tm = new Turma();
+            lbxAlunos.Items.Clear();
 
-            if(String.IsNullOrEmpty(cbxAluno.Text) || String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text) 
+            Turma tm = new Turma();
+            //ve se ta tudo preenchido
+            if (String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text)
                 || String.IsNullOrEmpty(cbxHora.Text) || String.IsNullOrEmpty(cbxQtdAluno.Text))
             {
                 MessageBox.Show("Por favor preencha todos os campos antes de prosseguir");
@@ -261,30 +242,26 @@ namespace estudio
 
                 DAO_Conexao.con.Close();
 
-                if (tm.verificaMaximoAlunos(idTurma))
-                {
-                    MessageBox.Show("A turma que você está tentando se cadastrar já está cheia");
-                }
-                else
-                {
-                    string cpfAluno = cbxAluno.Text; //pega todo o texto da cbxAluno
 
-                    cpfAluno = cpfAluno.Substring(0, 14); //pega so o cpf do aluno
+                Aluno al = new Aluno();
+                List<string> cpfAlunos = new List<string>();
+                MySqlDataReader rd = al.consultarCpfTurma(idTurma);
 
-                    Aluno al = new Aluno(cpfAluno);
-                    if(tm.verificaAlunoCadastrado(cpfAluno, idTurma)) //ve se já ta cadastrado naquela turma especifica
-                    {
-                        MessageBox.Show("Este aluno já está cadastrado nesta turma");
-                    }
-                    else if (al.cadastrarAlunoTurma(idTurma)) //cadastra ele
-                    {
-                        MessageBox.Show("Aluno cadastrado na turma com sucesso");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erro ao cadastrar o aluno na turma");
-                    }
+                while (rd.Read())
+                {
+                    cpfAlunos.Add(rd["CPFAluno"].ToString()); //pega os cpfs na turma escolhida
                 }
+                DAO_Conexao.con.Close();
+
+                foreach(string s in cpfAlunos) //usa os cpf pra conseguir o nome e exibir na listBox
+                {
+                    //Console.WriteLine(s);
+                    Aluno aluno = new Aluno(s);
+
+                    lbxAlunos.Items.Add(aluno.consultarNomeAlunoTurma());
+                }
+
+                //finalmente eu consegui isso, nunca estive tao feliz
             }
         }
     }

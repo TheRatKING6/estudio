@@ -43,6 +43,22 @@ namespace estudio
             setEmail(email);
             
         }
+        public Aluno(string cpf, string nome, string rua, string numero, string bairro, string complemento, string cep, string cidade, string estado, string telefone, string email, byte[] foto)
+        {
+            setCpf(cpf);
+            setNome(nome);
+            setRua(rua);
+            setNum(numero);
+            setBairro(bairro);
+            setComp(complemento);
+            setCep(cep);
+            setCidade(cidade);
+            setEstado(estado);
+            setTel(telefone);
+            setEmail(email);
+            setFoto(foto);
+
+        }
 
         public Aluno()
         {
@@ -124,8 +140,8 @@ namespace estudio
             {
                 DAO_Conexao.con.Open();
                 MySqlCommand insere = new MySqlCommand("insert into Estudio_Aluno (CPFAluno, nomeAluno, ruaAluno, numeroAluno, bairroAluno, complementoAluno, CEPAluno, cidadeAluno, estadoAluno, " +
-                    "telefoneAluno, emailAluno) values('" + cpf + "','" + nome + "','" + rua + "','" + numero + "','" + bairro + "','" + complemento + "','" + cep + "','" + cidade + 
-                    "','" + estado + "','" + telefone + "','" + email + "')", DAO_Conexao.con);
+                    "telefoneAluno, emailAluno, fotoAluno) values('" + cpf + "','" + nome + "','" + rua + "','" + numero + "','" + bairro + "','" + complemento + "','" + cep + "','" + cidade + 
+                    "','" + estado + "','" + telefone + "','" + email + "', '"+foto+"')", DAO_Conexao.con);
                 insere.ExecuteNonQuery();
                 cad = true;
             }
@@ -369,8 +385,78 @@ namespace estudio
             return cadastro;
         }
 
+        public bool excluirAlunoTurma(int idTurma)
+        {
+            bool excluir = false;
 
+            try
+            {
+                DAO_Conexao.con.Open();
+
+                MySqlCommand delete = new MySqlCommand("delete from Estudio_Turma_Aluno where CPFAluno='" + cpf + "' and idTurma=" + idTurma, DAO_Conexao.con);
+
+                delete.ExecuteNonQuery();
+
+                excluir = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return excluir;
+        }
+
+        public MySqlDataReader consultarCpfTurma(int idTurma)
+        {
+            MySqlDataReader consultar = null;
+
+            try
+            {
+                //pega todos os cpfs cadastrados naquela turma
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select CPFAluno from Estudio_Turma_Aluno where idTurma ="+idTurma, DAO_Conexao.con);
+
+                consultar = select.ExecuteReader();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            return consultar;
+        }
+
+        public string consultarNomeAlunoTurma()
+        {
+            string nome = null;
+            try
+            {
+                //pega os nome de um aluno com um certo cpf
+                DAO_Conexao.con.Open();
+
+                MySqlCommand select = new MySqlCommand("select nomeAluno from Estudio_Aluno where CPFAluno = '" + cpf + "'", DAO_Conexao.con);
+
+                nome = select.ExecuteScalar().ToString();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                DAO_Conexao.con.Close();
+            }
+
+            return nome;
+        }
     }
 
+    
     
 }

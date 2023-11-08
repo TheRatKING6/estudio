@@ -215,8 +215,8 @@ namespace estudio
             //Pega a turma com todas as informãcoes selecionadas
 
             turmaAtualizar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
-
-            cbxModaliade.DropDownStyle = ComboBoxStyle.DropDown;
+            Console.WriteLine("\n\n\n\n coisas \n\n\n\n");
+            //cbxModaliade.DropDownStyle = ComboBoxStyle.DropDown;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDown;
             cbxDia.DropDownStyle = ComboBoxStyle.DropDown;
             cbxProfessor.DropDownStyle = ComboBoxStyle.DropDown;
@@ -225,21 +225,24 @@ namespace estudio
 
         private void btnAtualizarTurma_Click(object sender, EventArgs e)
         {
-            //Pega o id da modalidade selecionada
-            //Modalidade mod = new Modalidade(cbxModaliade.Text);
+            //pega o id da turma
+            MySqlDataReader reader = turmaAtualizar.consultarTudoTurma();
+            int idTurma = 0;
+            while(reader.Read())
+            {
+                idTurma = int.Parse(reader["idEstudio_Turma"].ToString());
+            }
 
-            //MySqlDataReader reader = mod.consultarNomeModalidade();
-
-            /*string diaSemana = cbxDia.Text;
-            string hora = cbxHora.Text;
-            string professor = cbxProfessor.Text;
-            int nAlunos = int.Parse(cbxQtdAluno.Text);
-
-            Turma t1 = new Turma(professor, diaSemana, nAlunos, hora);*/
+            DAO_Conexao.con.Close();
+            
+            turmaAtualizar.Dia_semana = cbxDia.Text;
+            turmaAtualizar.Hora = cbxHora.Text;
+            turmaAtualizar.Professor = cbxProfessor.Text;
+            turmaAtualizar.NumeroAlunos = int.Parse(cbxQtdAluno.Text);
 
             
 
-            if(turmaAtualizar.atualizarTurma(cbxProfessor.Text, cbxDia.Text, cbxHora.Text, int.Parse(cbxQtdAluno.Text)))
+            if(turmaAtualizar.atualizarTurma(idTurma))
             {
                 MessageBox.Show("Sucesso ao atualizar turma");
             }

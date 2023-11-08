@@ -237,7 +237,7 @@ namespace estudio
             return buscar;
         }
 
-        public bool atualizarTurma(string prof, string dia, string hora, int nAlunos)
+        public bool atualizarTurma(int id)
         {
             bool atualizar = false;
 
@@ -245,9 +245,8 @@ namespace estudio
             {
                 DAO_Conexao.con.Open();
 
-                MySqlCommand update = new MySqlCommand("update Estudio_Turma set diaSemanaTurma='" + dia + "', horaTurma='" + hora + "', " +
-                    "ProfessorTurma='" + prof + "', nAlunosTurma=" + nAlunos + " where idModalidade=" + modalidade +
-                    " and diaSemanaTurma='" + dia_semana + "' and horaTurma='" + this.hora + "' and ProfessorTurma='" + professor + "' and nAlunosTurma=" + numeroAlunos, DAO_Conexao.con);
+                MySqlCommand update = new MySqlCommand("update Estudio_Turma set diaSemanaTurma='" + dia_semana + "', horaTurma='" + hora + "', " +
+                    "ProfessorTurma='" + professor + "', nAlunosTurma=" + numeroAlunos + " where idEstudio_Turma=" + id, DAO_Conexao.con);
 
                 update.ExecuteNonQuery();
 
@@ -328,5 +327,6 @@ namespace estudio
 
             return cadastrado;
         }
+
     }
 }

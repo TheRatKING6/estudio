@@ -11,11 +11,11 @@ using System.Windows.Forms;
 
 namespace estudio
 {
-    public partial class FormCadastrarAlunoTurma : Form
+    public partial class FormExcluirTurmaAluno : Form
     {
-
         Turma turmaBuscar;
-        public FormCadastrarAlunoTurma()
+
+        public FormExcluirTurmaAluno()
         {
             InitializeComponent();
             //coloca todas as modalidades no comboBox
@@ -48,11 +48,12 @@ namespace estudio
                     cbxAluno.Items.Add(nomecpf);
                 }
 
-               
+
             }
 
             DAO_Conexao.con.Close();
 
+            cbxAluno.Enabled = false;
             //Desativa a edicao dos negocio
             cbxModaliade.DropDownStyle = ComboBoxStyle.DropDownList;
             cbxHora.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -62,7 +63,7 @@ namespace estudio
             cbxAluno.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        private void FormCadastrarAlunoTurma_Load(object sender, EventArgs e)
+        private void FormExcluirTurmaAluno_Load(object sender, EventArgs e)
         {
 
         }
@@ -237,13 +238,15 @@ namespace estudio
             //Pega a turma com todas as informãcoes selecionadas
 
             turmaBuscar = new Turma(professor, diaSemana, hora, idModalidade, nAlunos);
+
+            cbxAluno.Enabled = true;
         }
 
-        private void btnCadastrarAluno_Click(object sender, EventArgs e)
+        private void btnExcluirAluno_Click(object sender, EventArgs e)
         {
             Turma tm = new Turma();
 
-            if(String.IsNullOrEmpty(cbxAluno.Text) || String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text) 
+            if (String.IsNullOrEmpty(cbxAluno.Text) || String.IsNullOrEmpty(cbxModaliade.Text) || String.IsNullOrEmpty(cbxProfessor.Text) || String.IsNullOrEmpty(cbxDia.Text)
                 || String.IsNullOrEmpty(cbxHora.Text) || String.IsNullOrEmpty(cbxQtdAluno.Text))
             {
                 MessageBox.Show("Por favor preencha todos os campos antes de prosseguir");
@@ -261,30 +264,29 @@ namespace estudio
 
                 DAO_Conexao.con.Close();
 
-                if (tm.verificaMaximoAlunos(idTurma))
-                {
-                    MessageBox.Show("A turma que você está tentando se cadastrar já está cheia");
-                }
-                else
-                {
-                    string cpfAluno = cbxAluno.Text; //pega todo o texto da cbxAluno
 
-                    cpfAluno = cpfAluno.Substring(0, 14); //pega so o cpf do aluno
 
-                    Aluno al = new Aluno(cpfAluno);
-                    if(tm.verificaAlunoCadastrado(cpfAluno, idTurma)) //ve se já ta cadastrado naquela turma especifica
+                string cpfAluno = cbxAluno.Text; //pega todo o texto da cbxAluno
+
+                cpfAluno = cpfAluno.Substring(0, 14); //pega so o cpf do aluno
+
+                Aluno al = new Aluno(cpfAluno);
+                if(tm.verificaAlunoCadastrado(cpfAluno, idTurma))
+                {
+                    if (al.excluirAlunoTurma(idTurma))
                     {
-                        MessageBox.Show("Este aluno já está cadastrado nesta turma");
-                    }
-                    else if (al.cadastrarAlunoTurma(idTurma)) //cadastra ele
-                    {
-                        MessageBox.Show("Aluno cadastrado na turma com sucesso");
+                        MessageBox.Show("Aluno excluido com sucesso");
                     }
                     else
                     {
-                        MessageBox.Show("Erro ao cadastrar o aluno na turma");
+                        MessageBox.Show("Erro ao excluir aluno");
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Impossível excluir aluno: ele não está cadastrado na turma selecionada");
+                }
+                
             }
         }
     }
